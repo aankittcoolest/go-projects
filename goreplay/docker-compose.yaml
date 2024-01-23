@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  prod-01:
+    build:
+      context: ./prod
+      dockerfile: Dockerfile
+    volumes:
+      - ./prod:/usr/src/app
+    environment:
+      PORT: 8000
+  prod-02:
+    build:
+      context: ./prod
+      dockerfile: Dockerfile
+    volumes:
+      - ./prod:/usr/src/app
+    environment:
+      PORT: 8001
+  prod-03:
+    build:
+      context: ./prod
+      dockerfile: Dockerfile
+    volumes:
+      - ./prod:/usr/src/app
+    environment:
+      PORT: 8002
+  qa-01:
+    build:
+      context: ./qa
+      dockerfile: Dockerfile
+    volumes:
+      - ./qa:/usr/src/app
+    environment:
+      PORT: 8000
+  qa-02:
+    build:
+      context: ./qa
+      dockerfile: Dockerfile
+    volumes:
+      - ./qa:/usr/src/app
+    environment:
+      PORT: 8001
+  qa-03:
+    build:
+      context: ./qa
+      dockerfile: Dockerfile
+    volumes:
+      - ./qa:/usr/src/app
+    environment:
+      PORT: 8002
+  nginx-prod:
+    image: nginx
+    volumes:
+      - ./prod/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8090:80
+  nginx-qa:
+    image: nginx
+    volumes:
+      - ./qa/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 9000:80
